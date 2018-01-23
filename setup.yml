@@ -1,0 +1,8 @@
+---
+
+- name: Un playbook per personalizzare l'installazione di Fedora
+  hosts: local
+  connection: local
+  roles:
+    - common
+

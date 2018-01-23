@@ -1,0 +1,18 @@
+- name: Setting the Numix GTK theme
+  command: /usr/bin/gsettings set org.gnome.desktop.interface gtk-theme "Numix"
+
+- name: Setting the Numix icon theme
+  command: /usr/bin/gsettings set org.gnome.desktop.interface icon-theme "Numix-Circle"
+
+- debug: msg="Use the command 'gsettings list-keys org.gnome.desktop.interface' to see more options"
+
+- name: copy chrome .desktop file for customization
+  copy:
+    src: /usr/share/applications/google-chrome.desktop
+    dest: ~/.local/share/applications/google-chrome.desktop
+- name: Set default incognito 
+  lineinfile:
+    path:  ~/.local/share/applications/google-chrome.desktop
+    regexp: "Exec=/usr/bin/google-chrome-stable %U"
+    line: "Exec=/usr/bin/google-chrome-stable --incognito --no-default-browser-check %U"
+

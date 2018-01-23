@@ -1,0 +1,7 @@
+---
+
+- include_tasks: fedora.yml
+  become: yes
+
+- include_tasks: fedora_user.yml
+  become: no

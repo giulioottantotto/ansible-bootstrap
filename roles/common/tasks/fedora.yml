@@ -1,0 +1,122 @@
+---
+- name: Install software from official repos
+  dnf: state=present name={{ item }}
+  with_items:
+  - curl
+  - docker
+  - git
+  - gnome-tweak-tool
+  - keepassx
+  - libselinux-python
+  - lsof
+  - nmap
+  - numix-gtk-theme
+  - numix-icon-theme
+  - numix-icon-theme-circle
+  - sed
+  - tar
+  - unzip
+  - vim
+  - wget
+  - zip
+  - mpv
+  - youtube-dl
+  - ffmpeg
+
+- name: Remove unwanted software
+  dnf: state=absent name={{ item }}
+  with_items:
+  - evolution
+  - rhythmbox
+
+- name: Update all software
+  dnf: state=latest name=*
+
+- name: Download GPG keys from RPM Fusion free
+  get_url:
+    url: http://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-free-fedora-{{ ansible_distribution_version }}
+    dest: /etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-free-fedora-{{ ansible_distribution_version }}
+    mode: 0644
+
+- name: Download GPG keys from RPM Fusion nonfree
+  get_url:
+    url: http://rpmfusion.org/keys?action=AttachFile&do=get&target=RPM-GPG-KEY-rpmfusion-nonfree-fedora-{{ ansible_distribution_version }}
+    dest: /etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-nonfree-fedora-{{ ansible_distribution_version }}
+    mode: 0644
+
+- name: Enable RPM Fusion free
+  yum_repository:
+    name: rpmfusion-free
+    description: RPM Fusion for Fedora $releasever - Free
+    baseurl: http://download1.rpmfusion.org/free/fedora/releases/$releasever/Everything/$basearch/os/
+    metalink: https://mirrors.rpmfusion.org/metalink?repo=free-fedora-$releasever&arch=$basearch
+    enabled: 1
+    metadata_expire: 14d
+    gpgcheck: 1
+    gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-free-fedora-$releasever
+
+- name: Enable RPM Fusion free updates
+  yum_repository:
+    name: rpmfusion-free-updates
+    description: RPM Fusion for Fedora $releasever - Free - Updates
+    baseurl: http://download1.rpmfusion.org/free/fedora/updates/$releasever/$basearch/
+    metalink: https://mirrors.rpmfusion.org/metalink?repo=free-fedora-updates-released-$releasever&arch=$basearch
+    enabled: 1
+    gpgcheck: 1
+    gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-free-fedora-$releasever
+
+- name: Enable RPM Fusion nonfree
+  yum_repository:
+    name: rpmfusion-nonfree
+    description: RPM Fusion for Fedora $releasever - Nonfree
+    baseurl: http://download1.rpmfusion.org/nonfree/fedora/releases/$releasever/Everything/$basearch/os/
+    metalink: https://mirrors.rpmfusion.org/metalink?repo=nonfree-fedora-$releasever&arch=$basearch
+    enabled: 1
+    metadata_expire: 14d
+    gpgcheck: 1
+    gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-nonfree-fedora-$releasever
+
+- name: Enable RPM Fusion nonfree updates
+  yum_repository:
+    name: rpmfusion-nonfree-updates
+    description: RPM Fusion for Fedora $releasever - Nonfree - Updates
+    baseurl: http://download1.rpmfusion.org/nonfree/fedora/updates/$releasever/$basearch/
+    metalink: https://mirrors.rpmfusion.org/metalink?repo=nonfree-fedora-updates-released-$releasever&arch=$basearch
+    enabled: 1
+    gpgcheck: 1
+    gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-nonfree-fedora-$releasever
+
+- name: Create Google-Chrome repo
+  yum_repository:
+    name: google-chrome
+    description: Google's repo
+    baseurl: http://dl.google.com/linux/chrome/rpm/stable/$basearch
+    enabled: 1
+    gpgcheck: 1
+    gpgkey: gpgkey=https://dl-ssl.google.com/linux/linux_signing_key.pub
+
+- name: Install Google-Chrome package
+  dnf: name=google-chrome-stable state=present
+
+- name: install tlp repo
+  dnf: 
+    name: http://repo.linrunner.de/fedora/tlp/repos/releases/tlp-release.fc{{ ansible_distribution_version }}.noarch.rpm 
+    disable_gpg_check: yes 
+    state: latest
+
+- name: enable tlp-updates
+  shell: dnf config-manager --set-enabled tlp-updates
+
+- name: enable tlp-updates-testing
+  shell: dnf config-manager --set-enabled tlp-updates-testing
+
+- name: install tlp and additional tlp stuff
+  dnf: name={{ item }} state=latest
+  with_items:
+    - tlp
+    - tlp-rdw
+    - akmod-tp_smapi
+    - akmod-acpi_call
+
+
+
