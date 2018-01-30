@@ -118,4 +118,10 @@
     - akmod-tp_smapi
     - akmod-acpi_call
 
+- name: Set to remember device state
+  lineinfile:
+    path:  /etc/default/tlp
+    regexp: "RESTORE_DEVICE_STATE_ON_STARTUP=0"
+    line: "RESTORE_DEVICE_STATE_ON_STARTUP=1"
+
 
