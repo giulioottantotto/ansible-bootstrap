@@ -88,7 +88,7 @@
 - name: Install software from RPM Fusion
   dnf: state=present name={{ item }}
   with_items:
-  - mpv
+  - gnome-mpv
   - ffmpeg
 
 - name: Create Google-Chrome repo
