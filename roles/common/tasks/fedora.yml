@@ -21,6 +21,8 @@
   - zip
   - youtube-dl
   - transmission
+  - ncdu
+  - tmux
 
 - name: Remove unwanted software
   dnf: state=absent name={{ item }}
