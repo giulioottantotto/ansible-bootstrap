@@ -1,7 +1,10 @@
 ---
 
-- include_tasks: fedora.yml
+- import_tasks: packages.yml
   become: yes
 
-- include_tasks: fedora_user.yml
+- import_tasks: chrome_incognito.yml
+  become: no
+
+- import_tasks: telegram.yml
   become: no

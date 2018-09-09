@@ -1,0 +1,12 @@
+---
+- name: Create target directory
+  file: path=~/.local/share/applications/ state=directory mode=0755
+- name: copy chrome .desktop file for customization
+  copy:
+    src: /usr/share/applications/google-chrome.desktop
+    dest: ~/.local/share/applications/google-chrome.desktop
+- name: Set default incognito 
+  lineinfile:
+    path:  ~/.local/share/applications/google-chrome.desktop
+    regexp: "Exec=/usr/bin/google-chrome-stable %U"
+    line: "Exec=/usr/bin/google-chrome-stable --incognito --no-default-browser-check %U"

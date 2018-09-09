@@ -1,0 +1,20 @@
+---
+
+- name: Setting the Numix GTK theme
+  command: /usr/bin/gsettings set org.gnome.desktop.interface gtk-theme "Numix"
+
+- name: Setting the Numix icon theme
+  command: /usr/bin/gsettings set org.gnome.desktop.interface icon-theme "Numix-Circle"
+
+- name: Settings show clock
+  command: /usr/bin/gsettings set org.gnome.desktop.interface clock-show-date true
+
+- name: Settings show minimize maximize
+  command: /usr/bin/gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
+
+- name: Settings always show universal access
+  command: /usr/bin/gsettings set org.gnome.desktop.a11y always-show-universal-access-status true
+
+
+
+- debug: msg="Use the command 'gsettings list-keys org.gnome.desktop.interface' to see more options"

@@ -5,14 +5,10 @@
   - curl
   - docker
   - git
-  - gnome-tweak-tool
   - keepassx
   - libselinux-python
   - lsof
   - nmap
-  - numix-gtk-theme
-  - numix-icon-theme
-  - numix-icon-theme-circle
   - sed
   - tar
   - unzip
@@ -20,7 +16,6 @@
   - wget
   - zip
   - youtube-dl
-  - transmission
   - ncdu
   - tmux
 
@@ -90,7 +85,7 @@
 - name: Install software from RPM Fusion
   dnf: state=present name={{ item }}
   with_items:
-  - gnome-mpv
+  - mpv
   - ffmpeg
 
 - name: Create Google-Chrome repo

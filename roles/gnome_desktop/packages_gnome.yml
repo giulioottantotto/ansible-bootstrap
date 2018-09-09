@@ -1,0 +1,11 @@
+---
+
+- name: Install software from official repos
+  dnf: state=present name={{ item }}
+  with_items:
+  - gnome-tweak-tool
+  - numix-gtk-theme
+  - numix-icon-theme
+  - numix-icon-theme-circle
+  - transmission
+

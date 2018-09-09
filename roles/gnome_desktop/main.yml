@@ -1,0 +1,7 @@
+---
+
+- import_tasks: gnome_settings.yml
+  become: no
+
+- import_tasks: packages_gnome.yml
+  become: yes
