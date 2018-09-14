@@ -8,3 +8,6 @@
 
 - import_tasks: telegram.yml
   become: no
+
+- import_tasks: latex.yml
+  become: yes
