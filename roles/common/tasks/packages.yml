@@ -4,6 +4,7 @@
   with_items:
   - curl
   - docker
+  - docker-compose
   - git
   - keepassx
   - libselinux-python
