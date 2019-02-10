@@ -5,4 +5,5 @@
   connection: local
   roles:
     - common
+    - gnome-desktop
 
